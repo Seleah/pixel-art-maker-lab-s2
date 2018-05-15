@@ -34,12 +34,12 @@ function respondToTheClick(evt) {
     console.log(color);
 
     //if the cell is already "colored in", remove the color
-    if (cell.attr('style')) {
-      cell.removeAttr('style');
+    if (cell.hasAttribute('style')) {
+      cell.removeAttribute('style');
 
       //if the cell has no color, add the color currently selected
     } else {
-      cell.attr('style', 'background-color:' + color);
+      cell.setAttribute('style', 'background-color:' + color);
 
     }
   }
