@@ -1,4 +1,5 @@
-// Select color input
+// Select color and size input and pixel canvas
+
 const colorPicker = document.querySelector('#colorPicker');
 const sizePicker = document.querySelector('#sizePicker');
 const pixelCanvas = document.querySelector('#pixelCanvas');
@@ -7,7 +8,6 @@ const pixelCanvas = document.querySelector('#pixelCanvas');
 
 sizePicker.addEventListener('submit', function(event) {
   //prevent the page from reloading
-  console.log('submit event triggered!');
   event.preventDefault();
   
   // Select size input
@@ -17,58 +17,24 @@ sizePicker.addEventListener('submit', function(event) {
   let gridHeight = parseInt(heightSelector.value);
   let gridWidth = parseInt(widthSelector.value);
   
-//   let pixelCanvas = document.querySelector('#pixelCanvas');
-  
   //use the call to makeGrid() to make the table
   pixelCanvas.innerHTML = makeGrid(gridHeight, gridWidth);
 });
 
-function respondToTheClick(evt) {
+function changeColor(evt) {
   
-  function changeColor(cell) {
-
-    // Select color input
-    const colorPicker = document.querySelector('#colorPicker');
-
-    let color = colorPicker.value;
-    console.log(color);
-
-    //if the cell is already "colored in", remove the color
-    if (cell.hasAttribute('style')) {
-      cell.removeAttribute('style');
-
-      //if the cell has no color, add the color currently selected
-    } else {
-      cell.setAttribute('style', 'background-color:' + color);
-
-    }
-  }
-  console.log('cell clicked');
   evt.preventDefault();
   
-  
-  changeColor(evt.target);
-}
-
-pixelCanvas.addEventListener('click', respondToTheClick);
-
-
-//function to change the color of the cell
-function changeColor(cell) {
-
-  let color = colorPicker.value;
-  console.log(color);
-  
-  //if the cell is already "colored in", remove the color
-  if (cell.attr('style')) {
-    cell.removeAttr('style');
-  
-  //if the cell has no color, add the color currently selected
+  if (evt.target.hasAttribute('style')) {
+    evt.target.removeAttribute('style');
   } else {
-    cell.attr('style', 'background-color:' + color);
-  
+    evt.target.style.backgroundColor = colorPicker.value;
   }
+  
 }
+
+pixelCanvas.addEventListener('click', changeColor);
+
 
 function makeGrid(height, width) {
   
